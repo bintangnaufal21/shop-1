@@ -29,15 +29,15 @@
                     <div class="shop-sidebar mb-30">
                         <div class="sidebar-widget mb-30">
                             <h4 class="sidebar-widget-title border-b-light-gray pb-15 mb-20">Kategori</h4>
-                            <div class="sidebar-category">
-                                <ul>
+{{--                             <div class="sidebar-category">
+                               <ul>
                                     <li><a href="#" class="d-block pb-10">Furniture <span>(25)</span></a></li>
                                     <li><a href="#" class="d-block pb-10">Dekorasi <span>(18)</span></a></li>
                                     <li><a href="#" class="d-block pb-10">Elektronik <span>(32)</span></a></li>
                                     <li><a href="#" class="d-block pb-10">Fashion <span>(47)</span></a></li>
                                     <li><a href="#" class="d-block">Otomotif <span>(15)</span></a></li>
                                 </ul>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="sidebar-widget mb-30">
@@ -54,7 +54,7 @@
                         <div class="sidebar-widget">
                             <h4 class="sidebar-widget-title border-b-light-gray pb-15 mb-20">Produk Terbaru</h4>
                             <div class="recent-product-wrapper">
-                                <div class="recent-product-item d-flex mb-15">
+                               {{--  <div class="recent-product-item d-flex mb-15">
                                     <div class="recent-product-img">
                                         <a href="#"><img src="{{ asset('landing/images/product/product-sm1.jpg') }}" alt=""></a>
                                     </div>
@@ -71,7 +71,7 @@
                                         <h6><a href="#">Lampu Meja LED</a></h6>
                                         <span class="primary-color">Rp 120.000</span>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                                 <div class="single-product mb-35">
                                     <div class="single-product-img position-relative over-hidden">
                                         <a class="position-relative d-block" href="{{ url('/product-detail') }}">
-                                            <img class="width50 height50" src="{{ asset('landing/images/product/product'.$i.'.png') }}" alt="Product {{ $i }}">
+                                          <img class="width75 height75" src="{{ asset('landing/images/product/product'.$i.'.jpg') }}" alt="Product {{$i}}">
                                         </a>
                                         @if($i % 3 == 0)
                                         <div class="single-product-label position-absolute theme-bg text-center px-2 transition-3 z-index1">
@@ -135,7 +135,7 @@
                                         </ul>
                                     </div>
                                     <div class="single-product-info position-relative mt-25">
-                                        <h6><a href="{{ url('/product-detail') }}">Nama Produk {{ $i }}</a></h6>
+                                        <h6><a href="{{ url('/product-detail') }}">Faith Industries {{ $i }} Clothes</a></h6>
                                         <div class="product-rating mb-10">
                                             <span class="theme-color"><i class="fas fa-star"></i></span>
                                             <span class="theme-color"><i class="fas fa-star"></i></span>
@@ -145,8 +145,8 @@
                                         </div>
                                         <ul class="single-product-price d-flex transition-3">
                                             <li>
-                                                <span class="gray-color pr-2"><del>Rp 999.000</del></span>
-                                                <span class="primary-color">Rp 799.000</span>
+                                                <span class="gray-color pr-2"><del>Rp 300.000</del></span>
+                                                <span class="primary-color">Rp 225.000</span>
                                             </li>
                                         </ul>
                                     </div>

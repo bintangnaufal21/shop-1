@@ -132,7 +132,7 @@
                                             </ul>
                                             <ul class="header-account d-none d-md-block">
                                                 <li class="d-none d-md-inline-block pl-20">
-                                                    <a href="login.html" data-toggle="tooltip" data-selector="true" data-placement="bottom" title="My Account" class="dark-black-color"><span><i class="far fa-user-circle"></i></span>
+                                                    <a href="{{ route('login') }}" data-toggle="tooltip" data-selector="true" data-placement="bottom" title="My Account" class="dark-black-color"><span><i class="far fa-user-circle"></i></span>
                                                     </a>
                                                 </li>
                                             </ul>
