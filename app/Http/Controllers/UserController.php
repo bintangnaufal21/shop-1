@@ -41,6 +41,12 @@ class UserController extends Controller
             'password' => 'required'
         ]);
 
+        if (Auth::check() && Auth::user()->role === 'admin') {
+            return redirect()->route('dashboard');
+        } else {
+            return redirect()->route('home');
+        }
+
         if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
             return redirect()->route('dashboard');

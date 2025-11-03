@@ -4,9 +4,10 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
+use App\http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [LandingController::class, 'home'])->name('home');
+Route::get('/home', [LandingController::class, 'home'])->name('home');
 Route::get('/shop', [LandingController::class, 'shop'])->name('shop');
 Route::get('/categories', [LandingController::class, 'categories'])->name('categories');
 Route::get('/category/{slug}', [LandingController::class, 'category'])->name('category');
@@ -14,9 +15,7 @@ Route::get('/promo', [LandingController::class, 'promo'])->name('promo');
 Route::get('/contact', [LandingController::class, 'contact'])->name('contact');
 Route::get('/about', [LandingController::class, 'about'])->name('about');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 Route::get('/user', [UserController::class, 'index'])->name('user');
 Route::post('/user/create', [UserController::class, 'store'])->name('user.store');
