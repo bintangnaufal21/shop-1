@@ -7,15 +7,15 @@
                 </div>
                 <div class="card-body">
                     <!-- Tambahkan ini untuk menampilkan error -->
-                    @if($errors->any())
+                    @if ($errors->any())
                         <div class="alert alert-danger">
-                            @foreach($errors->all() as $error)
+                            @foreach ($errors->all() as $error)
                                 <p>{{ $error }}</p>
                             @endforeach
                         </div>
                     @endif
 
-                    @if(session('success'))
+                    @if (session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
                         </div>
@@ -24,21 +24,25 @@
                     <form method="POST" action="{{ route('login.post') }}">
                         @csrf
                         <div class="form-floating mb-3">
-                            <input class="form-control @error('email') is-invalid @enderror" id="inputEmail" name="email" type="email" placeholder="name@example.com" value="{{ old('email') }}" required />
+                            <input class="form-control @error('email') is-invalid @enderror" id="inputEmail"
+                                name="email" type="email" placeholder="name@example.com" value="{{ old('email') }}"
+                                required />
                             <label for="inputEmail">Email address</label>
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-floating mb-3">
-                            <input class="form-control @error('password') is-invalid @enderror" id="inputPassword" name="password" type="password" placeholder="Password" required />
+                            <input class="form-control @error('password') is-invalid @enderror" id="inputPassword"
+                                name="password" type="password" placeholder="Password" required />
                             <label for="inputPassword">Password</label>
                             @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-check mb-3">
-                            <input class="form-check-input" id="inputRememberPassword" name="remember" type="checkbox" value="1" />
+                            <input class="form-check-input" id="inputRememberPassword" name="remember" type="checkbox"
+                                value="1" />
                             <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">

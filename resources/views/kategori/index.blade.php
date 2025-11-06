@@ -2,7 +2,7 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">Kategori</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
             <li class="breadcrumb-item active">Kategori</li>
         </ol>
     </div>
@@ -14,19 +14,19 @@
                     <i class="fas fa-table me-1"></i>
                     Daftar Kategori
                 </h6>
-                <a href="{{ route('kategori.create') }}" class="btn btn-primary btn-sm">
+                <a href="{{ route('admin.kategori.create') }}" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus me-1"></i> Tambah Kategori
                 </a>
             </div>
             <div class="card-body">
-                @if(session('success'))
+                @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
 
-                @if(session('error'))
+                @if (session('error'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         {{ session('error') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -43,19 +43,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($kategoris as $i => $kategori)
+                        @foreach ($kategoris as $i => $kategori)
                             <tr>
-                                <td>{{ $i+1 }}</td>
+                                <td>{{ $i + 1 }}</td>
                                 <td>{{ $kategori->kode_kategori }}</td>
                                 <td>{{ $kategori->nama_kategori }}</td>
                                 <td>
-                                    <a href="{{ route('kategori.edit', $kategori->id) }}" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('admin.kategori.edit', $kategori->id) }}"
+                                        class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
-                                    <form action="{{ route('kategori.delete', $kategori->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('admin.kategori.delete', $kategori->id) }}" method="POST"
+                                        class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Hapus kategori ini?')" class="btn btn-danger btn-sm">
+                                        <button type="submit" onclick="return confirm('Hapus kategori ini?')"
+                                            class="btn btn-danger btn-sm">
                                             <i class="fas fa-trash"></i> Hapus
                                         </button>
                                     </form>

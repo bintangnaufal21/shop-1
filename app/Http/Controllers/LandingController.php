@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Produk;
 
 class LandingController extends Controller
 {
@@ -13,7 +14,9 @@ class LandingController extends Controller
 
     public function shop()
     {
-        return view('landing.shop');
+        $produks = Produk::latest()->get();
+        return view('landing.shop', compact('produks'));
+
     }
 
     public function categories()

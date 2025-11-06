@@ -29,7 +29,7 @@
                     <div class="shop-sidebar mb-30">
                         <div class="sidebar-widget mb-30">
                             <h4 class="sidebar-widget-title border-b-light-gray pb-15 mb-20">Kategori</h4>
-{{--                             <div class="sidebar-category">
+                            {{--                             <div class="sidebar-category">
                                <ul>
                                     <li><a href="#" class="d-block pb-10">Furniture <span>(25)</span></a></li>
                                     <li><a href="#" class="d-block pb-10">Dekorasi <span>(18)</span></a></li>
@@ -54,7 +54,7 @@
                         <div class="sidebar-widget">
                             <h4 class="sidebar-widget-title border-b-light-gray pb-15 mb-20">Produk Terbaru</h4>
                             <div class="recent-product-wrapper">
-                               {{--  <div class="recent-product-item d-flex mb-15">
+                                {{--  <div class="recent-product-item d-flex mb-15">
                                     <div class="recent-product-img">
                                         <a href="#"><img src="{{ asset('landing/images/product/product-sm1.jpg') }}" alt=""></a>
                                     </div>
@@ -101,59 +101,72 @@
                         </div>
                     </div>
 
-                    <!-- Product Grid -->
                     <div class="row">
-                        @for($i = 1; $i <= 12; $i++)
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div class="s-p-wrapper">
-                                <div class="single-product mb-35">
-                                    <div class="single-product-img position-relative over-hidden">
-                                        <a class="position-relative d-block" href="{{ url('/product-detail') }}">
-                                          <img class="width75 height75" src="{{ asset('landing/images/product/product'.$i.'.jpg') }}" alt="Product {{$i}}">
-                                        </a>
-                                        @if($i % 3 == 0)
-                                        <div class="single-product-label position-absolute theme-bg text-center px-2 transition-3 z-index1">
-                                            <span class="white text-uppercase d-block"><span>15% </span>off</span>
+
+                        @foreach ($produks as $product)
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+                                <div class="s-p-wrapper">
+                                    <div class="single-product mb-35">
+                                        <div class="single-product-img position-relative over-hidden">
+
+                                            <a class="position-relative d-block"
+                                                href="{{ url('/product-detail/' . $product->id) }}">
+                                                <img class="width75 height75"
+                                                    src="{{ asset('storage/' . $product->gambar) }}"
+                                                    alt="{{ $product->nama_produk }}">
+                                            </a>
+
+                                            <ul class="product-action d-flex position-absolute transition-3">
+                                                <li data-placement="top" title="Add to Cart"
+                                                    class="white-bg primary-color d-block">
+                                                    <form action="{{ route('cart.add') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="product_id"
+                                                            value="{{ $product->id }}">
+                                                        <input type="hidden" name="qty" value="1">
+                                                        <button type="submit"
+                                                            class="text-center mb-10 white-bg primary-color d-block"
+                                                            style="border:none; background:none; cursor:pointer;">
+                                                            <span><i class="far fa-shopping-cart"></i></span>
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        @endif
-                                        <ul class="product-action d-flex position-absolute transition-3">
-                                            <li data-toggle="tooltip" data-placement="top" title="Add to Cart">
-                                                <a href="#" class="text-center mb-10 white-bg primary-color d-block">
-                                                    <span><i class="far fa-shopping-cart"></i></span>
-                                                </a>
-                                            </li>
-                                            <li data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
-                                                <a href="#" class="text-center mb-10 white-bg primary-color d-block">
-                                                    <span><i class="far fa-heart"></i></span>
-                                                </a>
-                                            </li>
-                                            <li data-toggle="tooltip" data-placement="top" title="Quick view">
-                                                <a href="#" class="text-center mb-10 white-bg primary-color d-block" data-toggle="modal" data-target="#product-modal">
-                                                    <span><i class="far fa-expand-wide"></i></span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="single-product-info position-relative mt-25">
-                                        <h6><a href="{{ url('/product-detail') }}">Faith Industries {{ $i }} Clothes</a></h6>
-                                        <div class="product-rating mb-10">
-                                            <span class="theme-color"><i class="fas fa-star"></i></span>
-                                            <span class="theme-color"><i class="fas fa-star"></i></span>
-                                            <span class="theme-color"><i class="fas fa-star"></i></span>
-                                            <span class="theme-color"><i class="fas fa-star"></i></span>
-                                            <span class="theme-color"><i class="fas fa-star-half-alt"></i></span>
+                                        <div class="single-product-info position-relative mt-25">
+
+                                            <h6><a
+                                                    href="{{ url('/product-detail/' . $product->id) }}">{{ $product->nama }}</a>
+                                            </h6>
+
+                                            <div class="product-rating mb-10">
+                                            </div>
+
+                                            <ul class="single-product-price d-flex transition-3">
+                                                <li>
+                                                    @if ($product->harga_diskon)
+                                                        <span class="gray-color pr-2"><del>Rp
+                                                                {{ number_format($product->harga, 0, ',', '.') }}</del></span>
+                                                        <span class="primary-color">Rp
+                                                            {{ number_format($product->harga_diskon, 0, ',', '.') }}</span>
+                                                    @else
+                                                        <span class="primary-color">Rp
+                                                            {{ number_format($product->harga, 0, ',', '.') }}</span>
+                                                    @endif
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <ul class="single-product-price d-flex transition-3">
-                                            <li>
-                                                <span class="gray-color pr-2"><del>Rp 300.000</del></span>
-                                                <span class="primary-color">Rp 225.000</span>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        @endfor
+                        @endforeach
+
+                        @if ($produks->isEmpty())
+                            <div class="col-12">
+                                <p class="text-center">Belum ada produk yang tersedia.</p>
+                            </div>
+                        @endif
+
                     </div>
 
                     <!-- Pagination -->
@@ -162,11 +175,13 @@
                             <div class="pagination-area mt-10">
                                 <nav>
                                     <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled"><a class="page-link" href="#"><i class="far fa-angle-double-left"></i></a></li>
+                                        <li class="page-item disabled"><a class="page-link" href="#"><i
+                                                    class="far fa-angle-double-left"></i></a></li>
                                         <li class="page-item active"><a class="page-link" href="#">1</a></li>
                                         <li class="page-item"><a class="page-link" href="#">2</a></li>
                                         <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#"><i class="far fa-angle-double-right"></i></a></li>
+                                        <li class="page-item"><a class="page-link" href="#"><i
+                                                    class="far fa-angle-double-right"></i></a></li>
                                     </ul>
                                 </nav>
                             </div>

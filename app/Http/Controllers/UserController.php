@@ -6,12 +6,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Cart;
+use App\Models\Produk;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $dataUser = User::get();
-        return view('user',compact('dataUser'));
+        return view('user', compact('dataUser'));
     }
 
     public function store(Request $request)
@@ -38,23 +41,28 @@ class UserController extends Controller
     {
         $credentials = $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
-        if (Auth::check() && Auth::user()->role === 'admin') {
-            return redirect()->route('dashboard');
-        } else {
-            return redirect()->route('home');
-        }
-
-        if (Auth::attempt($credentials, $request->remember)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('dashboard');
+
+            // ===============================================
+            // LOGIKA GABUNG KERANJANG (TAMBAHKAN INI)
+            // ===============================================
+            $this->mergeSessionCartWithDatabaseCart();
+            // ===============================================
+
+            // Redirect berdasarkan role
+            if (Auth::user()->role == 'admin') {
+                return redirect()->intended(route('admin.dashboard'));
+            }
+            return redirect()->intended(route('home')); // Arahkan ke home
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+            'email' => 'Email atau password salah.',
+        ])->onlyInput('email');
     }
 
     public function showLoginForm()
@@ -69,9 +77,50 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
+        // Saat logout, keranjang di database aman.
+        // Laravel akan otomatis menghapus session.
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect('/');
+    }
+
+    private function mergeSessionCartWithDatabaseCart()
+    {
+        $sessionCart = session()->get('cart', []);
+        $userId = Auth::id();
+
+        if (empty($sessionCart)) {
+            return; // Tidak ada yang perlu digabung
+        }
+
+        foreach ($sessionCart as $id => $item) {
+            // Cek apakah item sudah ada di keranjang database
+            $dbCartItem = Cart::where('user_id', $userId)
+                              ->where('produk_id', $id)
+                              ->first();
+
+            if ($dbCartItem) {
+                // Jika sudah ada, update kuantitasnya
+                $dbCartItem->quantity += $item['qty'];
+                $dbCartItem->save();
+            } else {
+                // Jika belum ada, buat entri baru
+                // ===============================================
+                // PERBAIKAN DI SINI: Tambahkan 'harga'
+                // ===============================================
+                Cart::create([
+                    'user_id' => $userId,
+                    'produk_id' => $id,
+                    'quantity' => $item['qty'],
+                    'harga' => $item['harga']             // <-- TAMBAHKAN BARIS INI
+                    // Kita tidak perlu 'nama_produk' atau 'gambar'
+                    // karena tabel 'carts' Anda tidak memilikinya.
+                ]);
+            }
+        }
+
+        // Hapus keranjang session setelah digabung
+        session()->forget('cart');
     }
 }

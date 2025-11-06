@@ -2,8 +2,8 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">Detail Produk</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('produk.index') }}">Produk</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.produk.index') }}">Produk</a></li>
             <li class="breadcrumb-item active">Detail Produk</li>
         </ol>
     </div>
@@ -19,8 +19,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4 text-center">
-                        @if($produk->gambar)
-                            <img src="{{ asset('storage/'.$produk->gambar) }}" alt="{{ $produk->nama_produk }}"
+                        @if ($produk->gambar)
+                            <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}"
                                 class="img-fluid rounded" style="max-height: 300px;">
                         @else
                             <div class="bg-light d-flex align-items-center justify-content-center rounded"
@@ -39,12 +39,14 @@
                             <tr>
                                 <th>Kategori</th>
                                 <td>
-                                    <span class="badge bg-secondary">{{ $produk->kategori->nama_kategori ?? '-' }}</span>
+                                    <span
+                                        class="badge bg-secondary">{{ $produk->kategori->nama_kategori ?? '-' }}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Harga</th>
-                                <td class="fw-bold text-primary">Rp {{ number_format($produk->harga, 0, ',', '.') }}</td>
+                                <td class="fw-bold text-primary">Rp {{ number_format($produk->harga, 0, ',', '.') }}
+                                </td>
                             </tr>
                             <tr>
                                 <th>Stok</th>
@@ -57,7 +59,7 @@
                             <tr>
                                 <th>Status</th>
                                 <td>
-                                    @if($produk->status == 'Aktif')
+                                    @if ($produk->status == 'Aktif')
                                         <span class="badge bg-success">Aktif</span>
                                     @elseif($produk->status == 'Nonaktif')
                                         <span class="badge bg-secondary">Nonaktif</span>
@@ -76,7 +78,7 @@
                             </tr>
                         </table>
 
-                        @if($produk->deskripsi)
+                        @if ($produk->deskripsi)
                             <div class="mt-3">
                                 <h6>Deskripsi Produk:</h6>
                                 <p class="text-muted">{{ $produk->deskripsi }}</p>
@@ -86,14 +88,14 @@
                 </div>
 
                 <div class="mt-4 d-flex justify-content-between">
-                    <a href="{{ route('produk.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.produk.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left me-1"></i> Kembali
                     </a>
                     <div>
-                        <a href="{{ route('produk.edit', $produk->id) }}" class="btn btn-warning">
+                        <a href="{{ route('admin.produk.edit', $produk->id) }}" class="btn btn-warning">
                             <i class="fas fa-edit me-1"></i> Edit
                         </a>
-                        <a href="{{ route('produk.index') }}" class="btn btn-primary">
+                        <a href="{{ route('admin.produk.index') }}" class="btn btn-primary">
                             <i class="fas fa-list me-1"></i> Daftar Produk
                         </a>
                     </div>

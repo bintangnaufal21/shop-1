@@ -30,8 +30,11 @@
                             <span class="theme-color d-block pb-2">Tentang KingStock</span>
                             <h3>Platform E-commerce Terpercaya Sejak 2022</h3>
                         </div>
-                        <p class="mb-3">KingStock adalah platform e-commerce terdepan yang berkomitmen untuk menyediakan produk-produk berkualitas dengan harga terjangkau. Kami hadir untuk memenuhi kebutuhan belanja online masyarakat Indonesia.</p>
-                        <p class="mb-3">Dengan pengalaman lebih dari 2 tahun dalam industri e-commerce, kami telah melayani ribuan pelanggan dengan produk-produk pilihan dari berbagai kategori.</p>
+                        <p class="mb-3">KingStock adalah platform e-commerce terdepan yang berkomitmen untuk
+                            menyediakan produk-produk berkualitas dengan harga terjangkau. Kami hadir untuk memenuhi
+                            kebutuhan belanja online masyarakat Indonesia.</p>
+                        <p class="mb-3">Dengan pengalaman lebih dari 2 tahun dalam industri e-commerce, kami telah
+                            melayani ribuan pelanggan dengan produk-produk pilihan dari berbagai kategori.</p>
 
                         <div class="about-features mt-30">
                             <div class="row">
@@ -85,7 +88,8 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                     <div class="about-img position-relative">
-                        <img src="{{ asset('landing/images/about/about-img.png') }}" alt="About Us" class="width100 rounded">
+                        <img src="{{ asset('landing/images/about/about-img.png') }}" alt="About Us"
+                            class="width100 rounded">
                     </div>
                 </div>
             </div>
@@ -111,30 +115,29 @@
                         ['name' => 'Ahmad Wijaya', 'position' => 'CEO & Founder', 'image' => 'team1.jpg'],
                         ['name' => 'Siti Rahma', 'position' => 'Marketing Director', 'image' => 'team2.jpg'],
                         ['name' => 'Budi Santoso', 'position' => 'Operation Manager', 'image' => 'team3.jpg'],
-                        ['name' => 'Maya Sari', 'position' => 'Customer Service Head', 'image' => 'team4.jpg']
+                        ['name' => 'Maya Sari', 'position' => 'Customer Service Head', 'image' => 'team4.jpg'],
                     ];
                 @endphp
 
-                @foreach($team as $member)
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="single-team text-center mb-30">
-                        <div class="team-img position-relative mb-20">
-                            <img src="{{ asset('landing/images/team/' . $member['image']) }}"
-                                 alt="{{ $member['name'] }}"
-                                 class="width100 rounded-circle">
-                            <div class="team-social position-absolute">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                @foreach ($team as $member)
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                        <div class="single-team text-center mb-30">
+                            <div class="team-img position-relative mb-20">
+                                <img src="{{ asset('landing/images/team/' . $member['image']) }}"
+                                    alt="{{ $member['name'] }}" class="width100 rounded-circle">
+                                <div class="team-social position-absolute">
+                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <h5 class="mb-1">{{ $member['name'] }}</h5>
+                                <span class="theme-color">{{ $member['position'] }}</span>
                             </div>
                         </div>
-                        <div class="team-content">
-                            <h5 class="mb-1">{{ $member['name'] }}</h5>
-                            <span class="theme-color">{{ $member['position'] }}</span>
-                        </div>
                     </div>
-                </div>
                 @endforeach
             </div>
         </div>

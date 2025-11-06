@@ -32,12 +32,12 @@
                     </tfoot>
                     <tbody>
                         @foreach ($dataUser as $index => $data)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $data->name }}</td>
-                            <td>{{ $data->email }}</td>
-                            <td>{{ $data->role }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $data->name }}</td>
+                                <td>{{ $data->email }}</td>
+                                <td>{{ $data->role }}</td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
