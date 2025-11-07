@@ -29,13 +29,13 @@ class KategoriController extends Controller
             'nama_kategori' => $request->nama_kategori
         ]);
 
-        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan!');
+        return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil ditambahkan!');
     }
 
     public function edit($id)
     {
         $kategori = Kategori::findOrFail($id);
-        return view('kategori.edit', compact('kategori'));
+        return view('admin.kategori.edit', compact('kategori'));
     }
 
     public function update(Request $request, $id)
@@ -59,11 +59,11 @@ class KategoriController extends Controller
 
         // Cek apakah kategori memiliki produk
         if ($kategori->produks()->count() > 0) {
-            return redirect()->route('kategori.index')->with('error', 'Tidak dapat menghapus kategori karena memiliki produk terkait!');
+            return redirect()->route('admin.kategori.index')->with('error', 'Tidak dapat menghapus kategori karena memiliki produk terkait!');
         }
 
         $kategori->delete();
 
-        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus!');
+        return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil dihapus!');
     }
 }

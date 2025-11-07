@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use App\Models\Produk;
 use App\Models\User;
-use App\Models\Pesanan;
+use App\Models\Order;
 
 use Illuminate\Http\Request;
 
@@ -16,8 +16,8 @@ class DashboardController extends Controller
         $totalUser = User::count();
         $totalKategori = Kategori::count();
         $totalProduk = Produk::count();
-        /* $totalPesanan = Pesanan::count(); */
+        $totalPesanan = Order::count();
 
-        return view('dashboard', compact('totalUser', 'totalKategori', 'totalProduk', /* 'totalPesanan' */));
+        return view('dashboard', compact('totalUser', 'totalKategori', 'totalProduk', 'totalPesanan' ));
     }
 }

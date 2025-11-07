@@ -30,9 +30,10 @@ class Cart extends Model
     /**
      * Relasi ke Produk
      */
-    public function produk()
-    {
-        // Pastikan nama model Anda 'Produk'
-        return $this->belongsTo(Produk::class, 'produk_id');
-    }
+    // Di dalam class Cart
+public function produk()
+{
+    
+    return $this->belongsTo(Produk::class, 'produk_id', 'id');
+}
 }

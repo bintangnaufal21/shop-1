@@ -54,6 +54,7 @@ Route::post('/register', [UserController::class, 'store'])->name('regis.store');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Rute Pengguna (Harus Login)
@@ -92,6 +93,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // Rute User (URL: /admin/user)
     Route::get('/user', [UserController::class, 'index'])->name('admin.user.index');
     Route::post('/user/create', [UserController::class, 'store'])->name('admin.user.store');
+
 
     // Rute Kategori (URL: /admin/kategori)
     Route::get('/kategori', [KategoriController::class, 'index'])->name('admin.kategori.index');

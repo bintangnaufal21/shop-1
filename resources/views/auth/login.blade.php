@@ -6,48 +6,40 @@
                     <h3 class="text-center font-weight-light my-4">Login</h3>
                 </div>
                 <div class="card-body">
-                    <!-- Tambahkan ini untuk menampilkan error -->
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            @foreach ($errors->all() as $error)
-                                <p>{{ $error }}</p>
-                            @endforeach
-                        </div>
-                    @endif
 
+                    <!-- ================== TAMBAHAN DI SINI ================== -->
+                    <!-- Ini untuk menampilkan pesan sukses jika ada -->
                     @if (session('success'))
-                        <div class="alert alert-success">
+                        <div class="alert alert-success"
+                            style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
                             {{ session('success') }}
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('login.post') }}">
+                    <!-- Ini untuk menampilkan error login (email/password salah) -->
+                    @if ($errors->has('email') && !$errors->has('password'))
+                        <div class="alert alert-danger"
+                            style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                            {{ $errors->first('email') }}
+                        </div>
+                    @endif
+                    <!-- ===================================================== -->
+
+                    <form action="{{ route('login.post') }}" method="POST">
                         @csrf
                         <div class="form-floating mb-3">
                             <input class="form-control @error('email') is-invalid @enderror" id="inputEmail"
-                                name="email" type="email" placeholder="name@example.com" value="{{ old('email') }}"
-                                required />
+                                name="email" type="email" placeholder="name@example.com"
+                                value="{{ old('email') }}" />
                             <label for="inputEmail">Email address</label>
-                            @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
                         </div>
                         <div class="form-floating mb-3">
                             <input class="form-control @error('password') is-invalid @enderror" id="inputPassword"
-                                name="password" type="password" placeholder="Password" required />
+                                name="password" type="password" placeholder="Password" />
                             <label for="inputPassword">Password</label>
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" id="inputRememberPassword" name="remember" type="checkbox"
-                                value="1" />
-                            <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                            <a class="small" href="password.html">Forgot Password?</a>
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button class="btn btn-primary" type="submit">Login</button>
                         </div>
                     </form>
                 </div>

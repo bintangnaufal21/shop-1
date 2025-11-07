@@ -32,9 +32,12 @@ class UserController extends Controller
             'role' => 'user',
         ]);
 
-        Auth::login($user);
+        Auth::login($user); // <-- Pengguna otomatis login
 
-        return redirect()->route('login')->with('success', 'Registration successful!');
+        // ================== PERBAIKAN DI SINI ==================
+        // Arahkan ke halaman utama (home), BUKAN ke halaman login lagi.
+        return redirect()->route('home')->with('success', 'Registrasi berhasil! Selamat datang.');
+        // =====================================================
     }
 
     public function login(Request $request)
@@ -48,7 +51,7 @@ class UserController extends Controller
             $request->session()->regenerate();
 
             // ===============================================
-            // LOGIKA GABUNG KERANJANG (TAMBAHKAN INI)
+            // LOGIKA GABUNG KERANJANG
             // ===============================================
             $this->mergeSessionCartWithDatabaseCart();
             // ===============================================
@@ -77,8 +80,6 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
-        // Saat logout, keranjang di database aman.
-        // Laravel akan otomatis menghapus session.
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
@@ -95,32 +96,23 @@ class UserController extends Controller
         }
 
         foreach ($sessionCart as $id => $item) {
-            // Cek apakah item sudah ada di keranjang database
             $dbCartItem = Cart::where('user_id', $userId)
-                              ->where('produk_id', $id)
-                              ->first();
+                ->where('produk_id', $id)
+                ->first();
 
             if ($dbCartItem) {
-                // Jika sudah ada, update kuantitasnya
                 $dbCartItem->quantity += $item['qty'];
                 $dbCartItem->save();
             } else {
-                // Jika belum ada, buat entri baru
-                // ===============================================
-                // PERBAIKAN DI SINI: Tambahkan 'harga'
-                // ===============================================
                 Cart::create([
                     'user_id' => $userId,
                     'produk_id' => $id,
                     'quantity' => $item['qty'],
-                    'harga' => $item['harga']             // <-- TAMBAHKAN BARIS INI
-                    // Kita tidak perlu 'nama_produk' atau 'gambar'
-                    // karena tabel 'carts' Anda tidak memilikinya.
+                    'harga' => $item['harga']
                 ]);
             }
         }
 
-        // Hapus keranjang session setelah digabung
         session()->forget('cart');
     }
 }
